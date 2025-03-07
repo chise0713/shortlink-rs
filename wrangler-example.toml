@@ -1,0 +1,13 @@
+name = "shortlink-rs"
+main = "build/worker/shim.mjs"
+compatibility_date = "2025-03-02"
+
+[build]
+command = "RUSTFLAGS='--cfg getrandom_backend=\"wasm_js\"' worker-build --release"
+
+[[kv_namespaces]]
+binding = "kv"
+id = "THE_KVNAMESPACE_ID"
+
+[vars]
+tokens = '["THE_ADMIN_TOKEN"]'
