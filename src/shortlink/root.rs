@@ -2,6 +2,8 @@ use std::str::FromStr;
 
 use worker::{Request, Response, Result, RouteContext, Url};
 
+use super::KV_BINDING;
+
 macro_rules! redirect_if_prefix {
     ($path:expr, { $($prefix:literal => $url:expr),* $(,)? }) => {
         $(
@@ -15,7 +17,7 @@ macro_rules! redirect_if_prefix {
 }
 
 pub async fn root(req: Request, ctx: RouteContext<()>) -> Result<Response> {
-    let kv = ctx.kv("KVNamespace")?;
+    let kv = ctx.kv(KV_BINDING)?;
     let path = &req.url()?.path().to_string()[1..];
 
     redirect_if_prefix!(path, {
